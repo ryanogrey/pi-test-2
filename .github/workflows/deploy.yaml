@@ -11,7 +11,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: pi2
+    runs-on: koob-pi2-runner
 
     steps:
       - name: Checkout repository
