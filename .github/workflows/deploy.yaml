@@ -1,0 +1,39 @@
+name: Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"] # This workflow runs after the build workflow
+    types:
+      - completed
+
+env:
+  KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy App (Deployment)
+        run: kubectl apply -f .github/deploy/deployment.yaml 
+
+      - name: Deploy App (Service)
+        run: kubectl apply -f .github/deploy/service.yaml
+
+
+      # - name: Deploy App (Deployment)
+      #   uses: actions-hub/kubectl@master
+      #   env:
+      #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      #   with:
+      #     args: apply -f .github/deploy/deployment.yaml --validate=false
+      
+      # - name: Deploy App (Service)
+      #   uses: actions-hub/kubectl@master
+      #   env:
+      #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      #   with:
+      #     args: apply -f .github/deploy/service.yaml --validate=false
