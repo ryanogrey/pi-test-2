@@ -22,9 +22,6 @@ jobs:
           mkdir ${HOME}/.kube
           echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
-      
-      - name: Use context
-        run: kubectl config use-context koob
 
       - name: Deploy App (Deployment)
         run: kubectl apply -f .github/deploy/deployment.yaml 
