@@ -60,10 +60,9 @@ jobs:
           echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
           export KUBECONFIG=${HOME}/.kube/config
-          kubectl get nodes -o wide
         
-      # - name: Check cluster
-      #   run: kubectl get nodes -o wide
+      - name: Check cluster
+        run: kubectl get nodes -o wide
 
 
       # - name: Deploy App (Deployment)
