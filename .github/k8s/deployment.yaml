@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: triquenguyen/pi-test-2:16
+        image: triquenguyen/pi-test-2:18
         ports:
         - containerPort: 80
         resources:
