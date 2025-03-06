@@ -59,7 +59,8 @@ jobs:
           mkdir ${HOME}/.kube
           echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
-          export KUBECONFIG=${HOME}/.kube/config
+          chmod 600 ${HOME}/.kube/config
+          echo "KUBECONFIG=${HOME}/.kube/config" >> $GITHUB_ENV
         
       - name: Check cluster
         run: kubectl get nodes -o wide
