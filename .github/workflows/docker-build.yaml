@@ -62,8 +62,8 @@ jobs:
           cat ${HOME}/.kube/config
 
       - name: Deploy App (Deployment)
-        run: kubectl apply -f .github/k8s/deployment.yaml
+        run: kubectl apply -f .github/k8s/deployment.yaml --validate=false
 
       - name: Deploy App (Service)
-        run: kubectl apply -f .github/k8s/service.yaml
+        run: kubectl apply -f .github/k8s/service.yaml --validate=false
 
