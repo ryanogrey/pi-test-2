@@ -1,0 +1,33 @@
+name: Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"] # This workflow runs after the build workflow
+    types:
+      - completed
+
+env:
+  KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+jobs:
+  deploy:
+    name: Deploy to Koob cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          cat ${HOME}/.kube/config
+      
+      - name: Use context
+        run: kubectl config use-context koob
+
+      - name: Deploy App (Deployment)
+        run: kubectl apply -f .github/deploy/deployment.yaml 
+
+      - name: Deploy App (Service)
+        run: kubectl apply -f .github/deploy/service.yaml 
