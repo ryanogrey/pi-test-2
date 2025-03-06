@@ -56,14 +56,13 @@ jobs:
 
       - name: Create Kubeconfig
         run: |
-          mkdir ${HOME}/.kube
-          echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ${HOME}/.kube/config
-          cat ${HOME}/.kube/config
+          mkdir ~/.kube
+          echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ~/.kube/config
+          cat ~/.kube/config
+          export KUBECONFIG=~/.kube/config
         
       - name: Check cluster
-        run: |
-          export KUBECONFIG=${HOME}/.kube/config
-          kubectl get nodes -o wide
+        run: kubectl get nodes -o wide
 
 
       # - name: Deploy App (Deployment)
