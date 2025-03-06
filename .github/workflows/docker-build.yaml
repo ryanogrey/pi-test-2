@@ -59,11 +59,12 @@ jobs:
           mkdir ${HOME}/.kube
           echo ${{ secrets.K3S_CONFIG }} | base64 --decode > ${HOME}/.kube/config
           cat ${HOME}/.kube/config
-          chmod 600 ${HOME}/.kube/config
-          echo "KUBECONFIG=${HOME}/.kube/config" >> $GITHUB_ENV
+          export KUBECONFIG=${HOME}/.kube/config
+          kubectl get nodes -o wide
         
-      - name: Check cluster
-        run: kubectl get nodes -o wide
+      # - name: Check cluster
+      #   run: kubectl get nodes -o wide
+
 
       # - name: Deploy App (Deployment)
       #   run: kubectl apply -f .github/k8s/deployment.yaml --validate=false
