@@ -62,7 +62,7 @@ jobs:
           export KUBECONFIG=~/.kube/config
         
       - name: Check cluster
-        run: kubectl get nodes
+        run: kubectl get nodes -o wide
 
 
       # - name: Deploy App (Deployment)
