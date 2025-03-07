@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-test-2
+  labels:
+    app: pi-test-2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pi-test-2
+  template:
+    metadata:
+      labels:
+        app: pi-test-2
+    spec:
+      containers:
+        - name: pi-test-2
+          image: triquenguyen/pi-test-2:48
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
