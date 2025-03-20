@@ -66,7 +66,7 @@ jobs:
           export KUBECONFIG=~/.kube/config
         
       - name: Check cluster
-        run: kubectl get nodes 
+        run: kubectl get nodes --validate=false
         
       - name: Replace Placeholders in Kubernetes Manifests
         run: |
