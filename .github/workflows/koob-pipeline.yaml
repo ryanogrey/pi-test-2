@@ -76,7 +76,7 @@ jobs:
           echo "Service YAML:"
           cat .github/k8s/service.yaml
 
-       - name: Deploy App (Deployment)
+      - name: Deploy App (Deployment)
         run: kubectl apply -f .github/k8s/deployment.yaml
 
       - name: Deploy App (Service)
